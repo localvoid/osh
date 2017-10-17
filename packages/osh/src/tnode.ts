@@ -23,10 +23,10 @@ export interface ComponentNode<P = null> {
 export interface ContextNode {
   readonly type: TNodeType.Context;
   readonly context: { [key: string]: string };
-  readonly children: TChildren;
+  readonly children: TChildren[];
 }
 
-export function context(ctx: Context, children: TChildren): ContextNode {
+export function context(ctx: Context, ...children: TChildren[]): ContextNode {
   return { type: TNodeType.Context, context: ctx, children };
 }
 

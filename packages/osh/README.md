@@ -57,13 +57,17 @@ import { component, context, renderToString } from "osh";
 // Unique symbol to prevent name collisions
 const VARS = Symbol("Vars");
 
-// def component will assign variables to the current context
-const def = componentFactory((ctx, props) => {
+// Def component will assign variables to the current context
+function Def(ctx, props) {
   return context(
     { [VARS]: { ...ctx[VARS], ...{ props.vars } } },
     props.children,
   );
-});
+}
+
+function def(vars, ...children) {
+  return component(Def, { vars, children });
+}
 
 // v component will extract variable from the current context
 const v = componentFactory((ctx, name) => ctx[VARS][name]);

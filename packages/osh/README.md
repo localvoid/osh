@@ -18,9 +18,7 @@ Component nodes are created with `component` function:
 function component(fn: () => TChildren): ComponentNode<undefined>;
 function component(fn: (context: Context) => TChildren): ComponentNode<undefined>;
 function component<T>(fn: (context: Context, props: T) => TChildren, props: T): ComponentNode<T>;
-function component(fn: (context: Context, props: any) => TChildren, props?: any): ComponentNode<any> {
-  return { type: TNodeType.Component, fn, props };
-}
+function component(fn: (context: Context, props: any) => TChildren, props?: any): ComponentNode<any>;
 ```
 
 #### Example

@@ -1,7 +1,7 @@
 import { Context } from "./context";
-import { TNodeType, TNode, TNodeList } from "./tnode";
+import { TNodeType, TNode, TChildrenArray } from "./tnode";
 
-function renderNodeList(nodes: TNodeList, context: Context): string {
+function renderNodeList(nodes: TChildrenArray, context: Context): string {
   let r = "";
   for (const node of nodes) {
     if (typeof node === "object") {

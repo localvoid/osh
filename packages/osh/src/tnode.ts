@@ -9,9 +9,9 @@ export type TNode =
   | ComponentNode<any>
   | ContextNode;
 
-export type TChildren = TNodeList | TNode | string | number | null;
+export type TChildren = TChildrenArray | TNode | string | number | null;
 /* tslint:disable:no-empty-interface */
-export interface TNodeList extends Array<TChildren> { }
+export interface TChildrenArray extends Array<TChildren> { }
 /* tslint:enable:no-empty-interface */
 
 export interface ComponentNode<P = null> {

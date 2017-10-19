@@ -37,9 +37,9 @@ export function component(fn: (context: Context, props: any) => TChildren, props
   return { type: TNodeType.Component, fn, props };
 }
 
-export function componentFactory(fn: (context: Context) => TChildren): () => TChildren;
-export function componentFactory<T>(fn: (context: Context, props: T) => TChildren): (props: T) => TChildren;
-export function componentFactory(fn: (context: Context, props: any) => TChildren): (props?: any) => TChildren {
+export function componentFactory(fn: (context: Context) => TChildren): () => ComponentNode;
+export function componentFactory<T>(fn: (context: Context, props: T) => TChildren): (props: T) => ComponentNode<T>;
+export function componentFactory(fn: (context: Context, props: any) => TChildren): (props?: any) => ComponentNode<any> {
   return (props?: any) => {
     return component(props);
   };

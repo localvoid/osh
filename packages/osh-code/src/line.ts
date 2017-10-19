@@ -1,4 +1,5 @@
 import { Context, TChildren, ContextNode, ComponentNode, context, component } from "osh";
+import { BlockCommentType, commentConfig, blockCommentType, continueBlockComment } from "./comment";
 
 export const INDENT_LEVEL = Symbol("IndentLevel");
 export const INDENT_STRING = Symbol("IndentString");
@@ -47,12 +48,15 @@ export function indent(...children: TChildren[]): ComponentNode<TChildren[]> {
 }
 
 export function Line(ctx: Context, children: TChildren[]): TChildren {
-  if (children.length > 0) {
+  const blockComment = blockCommentType(ctx);
+
+  if (children.length > 0 || blockComment !== BlockCommentType.Invalid) {
     return context(
       LineContext,
       [
         padding(ctx),
         pad(indentLevel(ctx), indentString(ctx)),
+        blockComment !== BlockCommentType.Invalid ? continueBlockComment(commentConfig(ctx), blockComment) : null,
         children,
         "\n",
       ],
@@ -70,5 +74,5 @@ function pad(n: number, p: string): string {
   while (n-- > 0) {
     s += p;
   }
-  return p;
+  return s;
 }

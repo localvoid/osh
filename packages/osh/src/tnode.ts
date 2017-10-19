@@ -41,6 +41,6 @@ export function componentFactory(fn: (context: Context) => TChildren): () => Com
 export function componentFactory<T>(fn: (context: Context, props: T) => TChildren): (props: T) => ComponentNode<T>;
 export function componentFactory(fn: (context: Context, props: any) => TChildren): (props?: any) => ComponentNode<any> {
   return (props?: any) => {
-    return component(props);
+    return component(fn, props);
   };
 }

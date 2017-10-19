@@ -1,5 +1,38 @@
 `osh` is a javascript library that provides component-based model for generating text data.
 
+One of the primary use case for this library is creating program code emitters.
+
+## Example
+
+```ts
+import { renderToString } from "osh";
+import { jsCode, line, indent, docComment } from "osh-code";
+
+renderToString(jsCode(
+  docComment(
+    line("Doc comment"),
+  ),
+  line(`function Main() {`),
+  indent(line(`console.log("Hello Code");`)),
+  line(`}`),
+));
+```
+
+Will produce:
+
+```js
+/**
+ * Doc comment
+ */
+function Main() {
+  console.log("Hello Code");
+}
+```
+
+## Getting Started
+
+`osh` API is super simple, it has only two building blocks: `Component` and `Context`
+
 ### Components
 
 Component is a basic building block for generating text data.
@@ -89,4 +122,3 @@ console.log(
 ## Additional Packages
 
 - [osh-code](https://npmjs.com/package/osh-code) provides a basic set of components for generating program code.
-

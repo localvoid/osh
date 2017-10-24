@@ -25,24 +25,31 @@ function _renderToString(node: TNode, context: Context): string {
   let c;
   if (node.type === TNodeType.Component) {
     c = node.fn(context, node.props);
+  } else if (node.type === TNodeType.Transform) {
+    c = node.children;
   } else {
     c = node.children;
     context = { ...context, ...node.context };
   }
 
+  let result = "";
   if (typeof c === "string") {
-    return c;
-  }
-  if (typeof c === "number") {
-    return c.toString();
-  }
-  if (typeof c === "object" && c !== null) {
+    result = c;
+  } else if (typeof c === "number") {
+    result = c.toString();
+  } else if (typeof c === "object" && c !== null) {
     if (Array.isArray(c)) {
-      return renderNodeList(c, context);
+      result = renderNodeList(c, context);
+    } else {
+      result = _renderToString(c, context);
     }
-    return _renderToString(c, context);
   }
-  return "";
+
+  if (node.type === TNodeType.Transform) {
+    result = node.fn(result, context);
+  }
+
+  return result;
 }
 
 export function renderToString(node: TNode): string {

@@ -29,13 +29,12 @@ function Main() {
 }
 ```
 
+
 ## Getting Started
 
-`osh` API is super simple, it has only two building blocks: `Component` and `Context`
+`osh` API is super simple, it has three building blocks: `Component`, `Context` and `Transform`
 
 ### Components
-
-Component is a basic building block for generating text data.
 
 Components are declared with a simple functions that has two optional parameters `ctx` and `props`.
 
@@ -117,6 +116,15 @@ console.log(
     ),
   ),
 );
+```
+
+### Transform
+
+Transform components perform transformations on rendered strings.
+
+```ts
+function transform(fn: (s: string) => string): TransformNode;
+function transform(fn: (s: string, context: Context) => string, ...children: TChildren[]): TransformNode;
 ```
 
 ## Additional Packages

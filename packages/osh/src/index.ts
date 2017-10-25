@@ -3,4 +3,4 @@ export {
   TNodeType, TNode, TChildrenArray, TChildren, ComponentNode, ContextNode, TransformNode,
   context, component, transform, componentFactory,
 } from "./tnode";
-export { renderToString } from "./render";
+export { STACK_TRACE, renderToString } from "./render";

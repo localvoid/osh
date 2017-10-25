@@ -1,5 +1,4 @@
 import { Context, TChildren, ComponentNode, component, context } from "osh";
-import { isLine, line } from "./line";
 
 export const COMMENT_CONFIG = Symbol("CommentConfig");
 export const BLOCK_COMMENT = Symbol("BlockComment");
@@ -33,23 +32,13 @@ export function commentConfig(ctx: Context): CommentConfig {
   return v;
 }
 
-export function Comment(ctx: Context, text: string): TChildren {
+export function Comment(ctx: Context, children: TChildren[]): TChildren {
   const cfg = commentConfig(ctx);
-  const multilineText = text.includes("\n");
-  if (isLine(ctx)) {
-    if (multilineText) {
-      text = text.replace("\n", " ");
-    }
-    return `${cfg.inlineStart} ${text} ${cfg.inlineEnd}`;
-  }
-  if (multilineText) {
-    return text.split("\n").map((t) => line(`${cfg.start} ${text}`));
-  }
-  return line(`${cfg.start} ${text}`);
+  return [cfg.inlineStart, children, cfg.inlineEnd];
 }
 
-export function comment(text: string): ComponentNode<string> {
-  return component(Comment, text);
+export function comment(...children: TChildren[]): ComponentNode<TChildren[]> {
+  return component(Comment, children);
 }
 
 export function blockCommentType(ctx: Context): BlockCommentType {

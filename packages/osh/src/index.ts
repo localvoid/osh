@@ -5,6 +5,7 @@ export {
 } from "./tnode";
 export {
   trimTransformer, trim, trimLeftTransformer, trimRightTransformer, trimLeft, trimRight,
+  toLowerCaseTransformer, toUpperCaseTransformer, toLowerCase, toUpperCase,
   replace,
 } from "./transformers";
 export { STACK_TRACE, renderToString } from "./render";

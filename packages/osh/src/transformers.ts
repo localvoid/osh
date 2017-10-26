@@ -27,6 +27,22 @@ export function trimRight(...children: TChildren[]): TransformNode {
   return transform(trimRightTransformer, children);
 }
 
-export function replace(searchValue: string, replaceValue: string, ...children: TChildren[]): TransformNode {
+export function toLowerCaseTransformer(s: string): string {
+  return s.toLowerCase();
+}
+
+export function toUpperCaseTransformer(s: string): string {
+  return s.toUpperCase();
+}
+
+export function toLowerCase(...children: TChildren[]): TransformNode {
+  return transform(toLowerCaseTransformer, children);
+}
+
+export function toUpperCase(...children: TChildren[]): TransformNode {
+  return transform(toUpperCaseTransformer, children);
+}
+
+export function replace(searchValue: string | RegExp, replaceValue: string, ...children: TChildren[]): TransformNode {
   return transform((s) => s.replace(searchValue, replaceValue), children);
 }

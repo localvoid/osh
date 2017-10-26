@@ -19,7 +19,7 @@ export function get<T = any>(ctx: Context, scopeName: symbol, key: string): T {
 
 export interface ScopeProps {
   readonly scopeName: symbol;
-  readonly conflictResolver: (key: string, i?: number) => string;
+  readonly conflictResolver: (key: string, i: number) => string;
   readonly keys: string[];
   readonly children: TChildren[];
 }
@@ -59,7 +59,7 @@ export function Scope(ctx: Context, props: ScopeProps): TChildren {
 
 export function scope(
   scopeName: symbol,
-  conflictResolver: (key: string) => string,
+  conflictResolver: (key: string, i: number) => string,
   keys: string[],
   ...children: TChildren[],
 ): ComponentNode<ScopeProps> {

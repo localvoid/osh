@@ -1,20 +1,25 @@
-import { Context, ComponentNode, TChildren, component, context } from "osh";
+import { Context, ComponentNode, TChildren, component, context, transform } from "osh";
 export const SCOPES = Symbol("Scopes");
 
 const has = Object.prototype.hasOwnProperty;
 
-export function get<T = any>(ctx: Context, scopeName: symbol, key: string): T {
-  const scopes = ctx[SCOPES];
-  if (scopes !== void 0) {
-    const s = scopes[scopeName];
-    if (s !== void 0) {
-      if (has.call(s, key)) {
-        return s[key];
+export function get(scopeName: symbol, ...children: TChildren[]): TChildren {
+  return transform(
+    (sym, ctx) => {
+      const scopes = ctx[SCOPES];
+      if (scopes !== void 0) {
+        const s = scopes[scopeName];
+        if (s !== void 0) {
+          if (has.call(s, sym)) {
+            return s[sym];
+          }
+        }
       }
-    }
-  }
 
-  throw new Error(`Unable to find key "${key}" in a "${scopeName}" scope`);
+      throw new Error(`Unable to find symbol "${sym}" in a "${scopeName}" scope`);
+    },
+    children,
+  );
 }
 
 export interface ScopeProps {

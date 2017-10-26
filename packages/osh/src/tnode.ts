@@ -45,7 +45,6 @@ export function component(fn: (context: Context, props: any) => TChildren, props
   return { type: TNodeType.Component, fn, props };
 }
 
-export function transform(fn: (s: string) => string, ...children: TChildren[]): TransformNode;
 export function transform(fn: (s: string, context: Context) => string, ...children: TChildren[]): TransformNode {
   return { type: TNodeType.Transform, fn, children };
 }

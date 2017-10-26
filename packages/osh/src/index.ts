@@ -6,6 +6,7 @@ export {
 export {
   trimTransformer, trim, trimLeftTransformer, trimRightTransformer, trimLeft, trimRight,
   toLowerCaseTransformer, toUpperCaseTransformer, toLowerCase, toUpperCase,
+  capitalizeTransformer, capitalize,
   replace,
 } from "./transformers";
 export { STACK_TRACE, renderToString } from "./render";

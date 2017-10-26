@@ -43,6 +43,17 @@ export function toUpperCase(...children: TChildren[]): TransformNode {
   return transform(toUpperCaseTransformer, children);
 }
 
+export function capitalizeTransformer(s: string): string {
+  if (s.length > 0) {
+    return s[0].toUpperCase() + s.substring(1);
+  }
+  return s;
+}
+
+export function capitalize(...children: TChildren[]): TransformNode {
+  return transform(capitalizeTransformer, children);
+}
+
 export function replace(searchValue: string | RegExp, replaceValue: string, ...children: TChildren[]): TransformNode {
   return transform((s) => s.replace(searchValue, replaceValue), children);
 }

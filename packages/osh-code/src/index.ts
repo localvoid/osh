@@ -5,7 +5,7 @@ export {
   COMMENT_CONFIG, BLOCK_COMMENT, CommentConfig, commentConfig, Comment, comment, blockCommentType, BlockComment,
   blockComment, DocComment, docComment,
 } from "./comment";
-export { get, Scope, scope } from "./scope";
+export { Scope, SymbolDeclaration, getSymbol, scope, declSymbol } from "./symbol";
 
 export { JSCode, jsCode } from "./presets/js";
 export { GOCode, goCode } from "./presets/go";

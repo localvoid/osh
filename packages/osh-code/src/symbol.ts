@@ -14,7 +14,7 @@ function hasReverseSymbol(frame: ScopeFrame, symbol: string): boolean {
     if (f.reverse.has(symbol)) {
       return true;
     }
-    f = frame.parent;
+    f = f.parent;
   }
   return false;
 }
@@ -22,13 +22,13 @@ function hasReverseSymbol(frame: ScopeFrame, symbol: string): boolean {
 function lookupSymbol(frame: ScopeFrame, scopeType: symbol, key: any): string | undefined {
   let f: ScopeFrame | null = frame;
   while (f !== null) {
-    if (frame.type === scopeType) {
-      const s = frame.symbols.get(key);
+    if (f.type === scopeType) {
+      const s = f.symbols.get(key);
       if (s !== void 0) {
         return s;
       }
     }
-    f = frame.parent;
+    f = f.parent;
   }
   return undefined;
 }
@@ -42,7 +42,7 @@ export function getSymbol(ctx: Context, scopeType: symbol, key: any): string {
     }
   }
 
-  throw new Error(`Unable to find symbol "${key}" in a "${scopeType}" scope`);
+  throw new Error(`Unable to find symbol "${key}" in a "${scopeType.toString()}" scope`);
 }
 
 export interface SymbolDeclaration {

@@ -1,4 +1,4 @@
-import { Context, TChildren, ContextNode, ComponentNode, context, component, transform } from "osh";
+import { Context, TChildren, ContextNode, ComponentNode, context, component, trimRight } from "osh";
 import { BlockCommentType, commentConfig, blockCommentType, continueBlockComment } from "./comment";
 
 export const INDENT_LEVEL = Symbol("IndentLevel");
@@ -54,14 +54,12 @@ export function Line(ctx: Context, children: TChildren[]): TChildren {
     return context(
       LineContext,
       [
-        transform(
-          removeTrailingWhitespace,
-          [
-            padding(ctx),
-            pad(indentLevel(ctx), indentString(ctx)),
-            blockComment !== BlockCommentType.Invalid ? continueBlockComment(commentConfig(ctx), blockComment) : null,
-            children,
-          ]),
+        trimRight(
+          padding(ctx),
+          pad(indentLevel(ctx), indentString(ctx)),
+          blockComment !== BlockCommentType.Invalid ? continueBlockComment(commentConfig(ctx), blockComment) : null,
+          children,
+        ),
         "\n",
       ],
     );
@@ -79,10 +77,4 @@ function pad(n: number, p: string): string {
     s += p;
   }
   return s;
-}
-
-const TRAILING_WHITESPACE = /\s+$/;
-
-function removeTrailingWhitespace(s: string): string {
-  return s.replace(TRAILING_WHITESPACE, "");
 }

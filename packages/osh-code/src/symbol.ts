@@ -23,7 +23,7 @@ function defaultConflictResolver(symbol: string, i: number): string {
   if (i === 1) {
     return symbol;
   }
-  return `${symbol}_${i}`;
+  return symbol + i;
 }
 
 export function getSymbol(ctx: Context, scopeType: symbol, key: any): string {

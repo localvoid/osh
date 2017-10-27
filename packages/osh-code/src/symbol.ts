@@ -44,6 +44,14 @@ export function getSymbol(ctx: Context, scopeType: symbol, key: any): string {
   throw new Error(`Unable to find symbol "${key}" in a "${scopeType.toString()}" scope`);
 }
 
+export function Sym(ctx: Context, props: { scopeType: symbol, key: any }): TChildren {
+  return getSymbol(ctx, props.scopeType, props.key);
+}
+
+export function sym(scopeType: symbol, key: any): ComponentNode<{ scopeType: symbol, key: any }> {
+  return component(Sym, { scopeType, key });
+}
+
 export interface SymbolDeclaration<T = any> {
   readonly key: T;
   readonly symbol: string;

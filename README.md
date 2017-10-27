@@ -6,7 +6,8 @@ One of the primary use case for this library is creating program code emitters.
 
 ```ts
 import { renderToString } from "osh";
-import { jsCode, line, indent, docComment } from "osh-code";
+import { line, indent, docComment } from "osh-code";
+import { jsCode } from "osh-code-js";
 
 renderToString(jsCode(
   docComment(
@@ -129,3 +130,7 @@ function transform(fn: (s: string, context: Context) => string, ...children: TCh
 ## Additional Packages
 
 - [osh-code](https://npmjs.com/package/osh-code) provides a basic set of components for generating program code.
+- [osh-code-go](https://npmjs.com/package/osh-code-go) provides a basic set of components for generating Go program
+code.
+- [osh-code-js](https://npmjs.com/package/osh-code-js) provides a basic set of components for generating
+Javascript(TypeScript) program code.

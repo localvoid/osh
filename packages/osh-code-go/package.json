@@ -1,10 +1,10 @@
 {
-  "name": "osh-code",
+  "name": "osh-code-go",
   "main": "dist/cjs/index.js",
   "module": "dist/js/index.js",
   "typings": "dist/typings/index.d.ts",
   "version": "0.3.0",
-  "description": "Basic set of components for generating program code",
+  "description": "Basic set of components for generating Go program code",
   "license": "MIT",
   "author": {
     "name": "Boris Kaul",

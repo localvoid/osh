@@ -1,55 +1,5 @@
 `osh-code` provides a set of basic components for generating program code.
 
-## Language Presets
-
-Language presets provide a default context variable for different programming languages.
-
-### Javascript
-
-```ts
-import { jsCode, line, docComment } from "osh-code";
-
-renderToString(jsCode(
-  docComment(
-    line("Doc comment"),
-  ),
-  line(`console.log("Hello Code");`),
-));
-```
-
-Will produce:
-
-```js
-/**
- * Doc comment
- */
-console.log("Hello Code");
-```
-
-### Go
-
-```ts
-import { goCode, line, docComment } from "osh-code";
-
-renderToString(goCode(
-  docComment(
-    line("Doc comment"),
-  ),
-  line(`func main() {`),
-  indent(line(`fmt.Printf("Hello Code")`)),
-  line(`}`),
-));
-```
-
-Will produce:
-
-```go
-// Doc comment
-func main() {
-    fmt.Printf("Hello Code")
-}
-```
-
 ## Components
 
 ### Line

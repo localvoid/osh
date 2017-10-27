@@ -19,34 +19,33 @@ function hasReverseSymbol(frame: ScopeFrame, symbol: string): boolean {
   return false;
 }
 
-function lookupSymbol(frame: ScopeFrame, scopeType: symbol, key: any): string | undefined {
-  let f: ScopeFrame | null = frame;
-  while (f !== null) {
-    if (f.type === scopeType) {
-      const s = f.symbols.get(key);
+function defaultConflictResolver(symbol: string, i: number): string {
+  if (i === 1) {
+    return symbol;
+  }
+  return `${symbol}_${i}`;
+}
+
+export function getSymbol(ctx: Context, scopeType: symbol, key: any): string {
+  let scopeFrame = ctx[SCOPE_FRAME];
+  if (scopeFrame === void 0) {
+    scopeFrame = null;
+  }
+  while (scopeFrame !== null) {
+    if (scopeFrame.type === scopeType) {
+      const s = scopeFrame.symbols.get(key);
       if (s !== void 0) {
         return s;
       }
     }
-    f = f.parent;
-  }
-  return undefined;
-}
-
-export function getSymbol(ctx: Context, scopeType: symbol, key: any): string {
-  const scopeFrame = ctx[SCOPE_FRAME];
-  if (scopeFrame !== void 0) {
-    const s = lookupSymbol(scopeFrame, scopeType, key);
-    if (s !== void 0) {
-      return s;
-    }
+    scopeFrame = scopeFrame.parent;
   }
 
   throw new Error(`Unable to find symbol "${key}" in a "${scopeType.toString()}" scope`);
 }
 
-export interface SymbolDeclaration {
-  readonly key: any;
+export interface SymbolDeclaration<T = any> {
+  readonly key: T;
   readonly symbol: string;
 }
 
@@ -55,10 +54,10 @@ export function declSymbol(key: any, symbol: string): SymbolDeclaration {
 }
 
 export interface ScopeProps {
-  readonly scopeType: symbol;
+  readonly type: symbol;
   readonly conflictResolver: (key: string, i: number) => string;
-  readonly symbols: any;
-  readonly children: TChildren[];
+  readonly symbols: SymbolDeclaration[];
+  readonly children: TChildren;
 }
 
 export function Scope(ctx: Context, props: ScopeProps): TChildren {
@@ -69,9 +68,9 @@ export function Scope(ctx: Context, props: ScopeProps): TChildren {
   const symbols = new Map<any, string>();
   const reverse = new Map<string, any>();
   for (const s of props.symbols) {
-    let symbol = props.conflictResolver(s.symbol, 0);
+    let symbol = props.conflictResolver(s.symbol, 1);
     if (parentFrame !== null) {
-      let i = 1;
+      let i = 2;
       while (hasReverseSymbol(parentFrame, symbol)) {
         symbol = props.conflictResolver(symbol, i++);
       }
@@ -84,7 +83,7 @@ export function Scope(ctx: Context, props: ScopeProps): TChildren {
     {
       [SCOPE_FRAME]: {
         parent: parentFrame,
-        type: props.scopeType,
+        type: props.type,
         symbols,
         reverse,
       },
@@ -94,10 +93,18 @@ export function Scope(ctx: Context, props: ScopeProps): TChildren {
 }
 
 export function scope(
-  scopeType: symbol,
-  conflictResolver: (key: string, i: number) => string,
-  symbols: SymbolDeclaration[],
-  ...children: TChildren[],
+  props: {
+    type: symbol,
+    symbols: SymbolDeclaration[],
+    conflictResolver?: (key: string, i: number) => string,
+    children: TChildren,
+  },
 ): ComponentNode<ScopeProps> {
-  return component<ScopeProps>(Scope, { scopeType, conflictResolver, symbols, children });
+  return component<ScopeProps>(
+    Scope,
+    {
+      conflictResolver: defaultConflictResolver,
+      ...props,
+    },
+  );
 }

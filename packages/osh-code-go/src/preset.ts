@@ -1,6 +1,5 @@
 import { TChildren, ContextNode, ComponentNode, Context, context, component } from "osh";
-import { INDENT_LEVEL, INDENT_STRING } from "../line";
-import { COMMENT_CONFIG } from "../comment";
+import { INDENT_LEVEL, INDENT_STRING, COMMENT_CONFIG } from "osh-code";
 
 export function GOCode(ctx: Context, children: TChildren[]): ContextNode {
   const indentLevel = ctx[INDENT_LEVEL];

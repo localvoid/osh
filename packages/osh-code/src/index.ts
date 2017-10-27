@@ -6,6 +6,3 @@ export {
   blockComment, DocComment, docComment,
 } from "./comment";
 export { Scope, SymbolDeclaration, getSymbol, scope, declSymbol } from "./symbol";
-
-export { JSCode, jsCode } from "./presets/js";
-export { GOCode, goCode } from "./presets/go";

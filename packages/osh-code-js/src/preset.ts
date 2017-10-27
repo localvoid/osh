@@ -1,11 +1,9 @@
 import { TChildren, ComponentNode, Context, context, component } from "osh";
-import { INDENT_LEVEL, INDENT_STRING, line } from "../line";
-import { COMMENT_CONFIG } from "../comment";
-import { scope, declSymbol } from "../symbol";
+import { INDENT_LEVEL, INDENT_STRING, COMMENT_CONFIG, line, scope, declSymbol } from "osh-code";
 
 const RESERVED_KEYWORDS = Symbol("ReservedKeywords");
 
-const KEYWORDS = [
+const RESERVED_KEYWORDS_SYMBOLS = [
   "abstract",
   "arguments",
   "await",
@@ -72,20 +70,12 @@ const KEYWORDS = [
   "yield",
 ].map((s) => declSymbol(s, s));
 
-function keywordConflictResolver(s: string, i: number): string {
-  if (i === 0) {
-    return s;
-  }
-  return `${s}_${i}`;
-}
-
 export function JSCode(ctx: Context, children: TChildren[]): TChildren {
   const indentLevel = ctx[INDENT_LEVEL];
-  return scope(
-    RESERVED_KEYWORDS,
-    keywordConflictResolver,
-    KEYWORDS,
-    context(
+  return scope({
+    type: RESERVED_KEYWORDS,
+    symbols: RESERVED_KEYWORDS_SYMBOLS,
+    children: context(
       {
         [INDENT_LEVEL]: indentLevel === void 0 ? 0 : indentLevel,
         [INDENT_STRING]: "  ",
@@ -103,7 +93,7 @@ export function JSCode(ctx: Context, children: TChildren[]): TChildren {
       },
       children,
     ),
-  );
+  });
 }
 
 export function jsCode(...children: TChildren[]): ComponentNode<TChildren[]> {

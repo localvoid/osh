@@ -1,3 +1,3 @@
-export { JSCodeOptions, JS_CODE_OPTIONS } from "./options";
+export { JSCodeOptions, JS_CODE_OPTIONS, jsCodeOptions } from "./options";
 export { JSCodeProps, JSCode, jsCode } from "./preset";
-export { jsCodeOptions, TS, Flow, ts, flow } from "./helpers";
+export { TS, Flow, ts, flow } from "./helpers";

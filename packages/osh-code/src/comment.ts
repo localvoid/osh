@@ -1,5 +1,6 @@
 import { Context, TChildren, ComponentNode, component, context } from "osh";
 
+export const REMOVE_COMMENTS = Symbol("RemoveComments");
 export const COMMENT_CONFIG = Symbol("CommentConfig");
 export const BLOCK_COMMENT = Symbol("BlockComment");
 
@@ -33,6 +34,9 @@ export function commentConfig(ctx: Context): CommentConfig {
 }
 
 export function Comment(ctx: Context, children: TChildren[]): TChildren {
+  if (ctx[REMOVE_COMMENTS]) {
+    return null;
+  }
   const cfg = commentConfig(ctx);
   return [cfg.inlineStart, children, cfg.inlineEnd];
 }
@@ -50,6 +54,9 @@ export function blockCommentType(ctx: Context): BlockCommentType {
 }
 
 export function BlockComment(ctx: Context, children: TChildren[]): TChildren {
+  if (ctx[REMOVE_COMMENTS]) {
+    return null;
+  }
   const cfg = commentConfig(ctx);
 
   return [
@@ -65,6 +72,9 @@ export function blockComment(...children: TChildren[]): ComponentNode<TChildren[
 }
 
 export function DocComment(ctx: Context, children: TChildren[]): TChildren {
+  if (ctx[REMOVE_COMMENTS]) {
+    return null;
+  }
   const cfg = commentConfig(ctx);
 
   return [

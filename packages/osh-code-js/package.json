@@ -39,7 +39,8 @@
     "test:coverage": "../../node_modules/.bin/nyc ../../node_modules/.bin/mocha __tests__/index.ts"
   },
   "peerDependencies": {
-    "osh": "^0.3.0"
+    "osh": "^0.3.0",
+    "osh-code": "^0.3.0"
   },
   "dependencies": {},
   "devDependencies": {},

@@ -38,7 +38,9 @@
     "test": "../../node_modules/.bin/mocha --reporter mocha-iko-reporter -r ../../node_modules/ts-node/register __tests__/index.ts",
     "test:coverage": "../../node_modules/.bin/nyc ../../node_modules/.bin/mocha __tests__/index.ts"
   },
-  "peerDependencies": {},
+  "peerDependencies": {
+    "osh": "^0.3.0"
+  },
   "dependencies": {},
   "devDependencies": {},
   "nyc": {

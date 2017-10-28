@@ -9,4 +9,5 @@ export {
   capitalizeTransformer, capitalize,
   replace,
 } from "./transformers";
+export { join } from "./helpers";
 export { STACK_TRACE, renderToString } from "./render";

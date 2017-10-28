@@ -16,7 +16,7 @@ export type TChildren = TChildrenArray | TNode | string | number | null;
 export interface TChildrenArray extends Array<TChildren> { }
 /* tslint:enable:no-empty-interface */
 
-export interface ComponentNode<P = null> {
+export interface ComponentNode<P = undefined> {
   readonly type: TNodeType.Component;
   readonly fn: (context: Context, props: P) => TChildren;
   readonly props: P;
@@ -47,12 +47,4 @@ export function component(fn: (context: Context, props: any) => TChildren, props
 
 export function transform(fn: (s: string, context: Context) => string, ...children: TChildren[]): TransformNode {
   return { type: TNodeType.Transform, fn, children };
-}
-
-export function componentFactory(fn: (context: Context) => TChildren): () => ComponentNode;
-export function componentFactory<T>(fn: (context: Context, props: T) => TChildren): (props: T) => ComponentNode<T>;
-export function componentFactory(fn: (context: Context, props: any) => TChildren): (props?: any) => ComponentNode<any> {
-  return (props?: any) => {
-    return component(fn, props);
-  };
 }

@@ -1,8 +1,9 @@
 export { Context } from "./context";
 export {
   TNodeType, TNode, TChildrenArray, TChildren, ComponentNode, ContextNode, TransformNode,
-  context, component, transform, componentFactory,
+  context, component, transform,
 } from "./tnode";
+export { componentFactory } from "./factory";
 export {
   trimTransformer, trim, trimLeftTransformer, trimRightTransformer, trimLeft, trimRight,
   toLowerCaseTransformer, toUpperCaseTransformer, toLowerCase, toUpperCase,

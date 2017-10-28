@@ -1,15 +1,22 @@
 import { Context, TNodeType, TNode } from "osh";
 
+function functionName(fn: any): string {
+  if (fn.displayName) {
+    return fn.displayName;
+  }
+  return fn.name;
+}
+
 export function stackTraceToString(stackTrace: TNode[]): string {
   let s = "";
 
   for (const stackFrame of stackTrace) {
     switch (stackFrame.type) {
       case TNodeType.Component:
-        s += `[c] ${stackFrame.fn.name}\n`;
+        s += `[c] ${functionName(stackFrame.fn)}\n`;
         break;
       case TNodeType.Transform:
-        s += `[t] ${stackFrame.fn.name}`;
+        s += `[t] ${functionName(stackFrame.fn.name)}`;
         break;
     }
   }

@@ -1,6 +1,10 @@
 import { Context, TNodeType, TNode } from "osh";
 
-function functionName(fn: any): string {
+interface FunctionWithDisplayName extends Function {
+  displayName?: string;
+}
+
+function functionName(fn: FunctionWithDisplayName): string {
   if (fn.displayName) {
     return fn.displayName;
   }
@@ -16,7 +20,7 @@ export function stackTraceToString(stackTrace: TNode[]): string {
         s += `[c] ${functionName(stackFrame.fn)}\n`;
         break;
       case TNodeType.Transform:
-        s += `[t] ${functionName(stackFrame.fn.name)}`;
+        s += `[t] ${functionName(stackFrame.fn)}`;
         break;
     }
   }

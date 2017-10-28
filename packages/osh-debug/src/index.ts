@@ -1,1 +1,1 @@
-export { stackTraceToString } from "./stack_trace";
+export { stackTraceToString, extractContext } from "./stack_trace";

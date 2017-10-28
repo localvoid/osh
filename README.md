@@ -134,3 +134,4 @@ function transform(fn: (s: string, context: Context) => string, ...children: TCh
 code.
 - [osh-code-js](https://npmjs.com/package/osh-code-js) provides a basic set of components for generating
 Javascript(TypeScript) program code.
+- [osh-debug](https://npmjs.com/package/osh-debug) debug utilities.

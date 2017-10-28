@@ -7,3 +7,9 @@ function stackTraceToString(stackTrace: TNode[]): string;
 ```
 
 `stackTraceToString` converts stack trace to a readable string.
+
+```ts
+function extractContext(stackTrace: TNode[]): Context;
+```
+
+`extractContext` extracts the latest context from stack trace.

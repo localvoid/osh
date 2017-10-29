@@ -329,8 +329,6 @@ const result = inject(
     if (region.type === "validate") {
       const name = region.data.schema;
       const schema = SCHEMAS[name];
-      // emit API is changed and has a `padding` as a first argument that should be prepended for all lines.
-      // `region.padding` is automatically detected by `incode` library.
       return emit(region.padding, validateFunction(name, schema));
     }
 
@@ -364,15 +362,15 @@ function component(fn: (context: Context, props: any) => TChildren, props?: any)
 #### Example
 
 ```js
-import { componentFactory, component, renderToString } from "osh";
+import { component, renderToString } from "osh";
 import { line, indent } from "osh-code";
-
-const indentedComponent = componentFactory((msg) => indent(line("Indented Text: ", msg)));
 
 function Example(ctx, msg) {
   return [
     line("Example"),
-    indentedComponent(msg),
+    indent(
+      line("Indented Text: ", msg),
+    ),
   ];
 }
 
@@ -409,8 +407,14 @@ function def(vars, ...children) {
   return component(Def, { vars, children });
 }
 
-// v component will extract variable from the current context
-const v = componentFactory((ctx, name) => ctx[VARS][name]);
+// V component will extract variable from the current context
+function V(ctx, name) {
+  return ctx[VARS][name];
+}
+
+function v(name) {
+  return component(V, name);
+}
 
 function Example(ctx, msg) {
   return line("Var: ", v("var"))];

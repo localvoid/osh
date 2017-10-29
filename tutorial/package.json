@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "name": "osh-tutorial",
+  "version": "1.0.0",
+  "description": "Tutorial for osh library",
+  "license": "MIT",
+  "scripts": {
+    "gen": "npx babel-node --presets es2015 -- ./codegen.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "incode": "^0.2.1",
+    "osh": "^0.3.0",
+    "osh-code": "^0.3.0",
+    "osh-code-js": "^0.3.0"
+  }
+}

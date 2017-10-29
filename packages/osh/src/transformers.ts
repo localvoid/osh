@@ -5,7 +5,7 @@ export function trimTransformer(s: string): string {
 }
 
 export function trim(...children: TChildren[]): TransformNode {
-  return transform(trimTransformer, children);
+  return transform(trimTransformer, ...children);
 }
 
 const LEADING_WHITESPACE = /^\s+/;
@@ -20,11 +20,11 @@ export function trimRightTransformer(s: string): string {
 }
 
 export function trimLeft(...children: TChildren[]): TransformNode {
-  return transform(trimLeftTransformer, children);
+  return transform(trimLeftTransformer, ...children);
 }
 
 export function trimRight(...children: TChildren[]): TransformNode {
-  return transform(trimRightTransformer, children);
+  return transform(trimRightTransformer, ...children);
 }
 
 export function toLowerCaseTransformer(s: string): string {
@@ -36,11 +36,11 @@ export function toUpperCaseTransformer(s: string): string {
 }
 
 export function toLowerCase(...children: TChildren[]): TransformNode {
-  return transform(toLowerCaseTransformer, children);
+  return transform(toLowerCaseTransformer, ...children);
 }
 
 export function toUpperCase(...children: TChildren[]): TransformNode {
-  return transform(toUpperCaseTransformer, children);
+  return transform(toUpperCaseTransformer, ...children);
 }
 
 export function capitalizeTransformer(s: string): string {
@@ -51,9 +51,9 @@ export function capitalizeTransformer(s: string): string {
 }
 
 export function capitalize(...children: TChildren[]): TransformNode {
-  return transform(capitalizeTransformer, children);
+  return transform(capitalizeTransformer, ...children);
 }
 
 export function replace(searchValue: string | RegExp, replaceValue: string, ...children: TChildren[]): TransformNode {
-  return transform((s) => s.replace(searchValue, replaceValue), children);
+  return transform((s) => s.replace(searchValue, replaceValue), ...children);
 }

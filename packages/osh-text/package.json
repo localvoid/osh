@@ -1,10 +1,10 @@
 {
-  "name": "osh-string",
+  "name": "osh-text",
   "main": "dist/cjs/index.js",
   "module": "dist/js/index.js",
   "typings": "dist/typings/index.d.ts",
   "version": "0.4.0",
-  "description": "String utilities for osh library",
+  "description": "General purpose text utilities for osh library",
   "license": "MIT",
   "author": {
     "name": "Boris Kaul",

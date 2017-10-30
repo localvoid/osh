@@ -47,7 +47,7 @@ Full source for this tutorial is available [here](https://github.com/localvoid/o
 To build codegenerator we will use four packages:
 
 - [osh](https://npmjs.com/package/osh) package provides basic building blocks for text generation and a string renderer.
-- [osh-string](https://npmjs.com/package/osh-string) package provides string utilities.
+- [osh-text](https://npmjs.com/package/osh-text) package provides general purpose text utilities.
 - [osh-code](https://npmjs.com/package/osh-code) package provides generic components that can be used in many different
 programming languages (`line()`, `indent()`, `comment()` etc).
 - [osh-code-js](https://npmjs.com/package/osh-code-js) package provides javascript specific components and a preset that
@@ -55,7 +55,7 @@ sets up `osh-code` environment.
 - [incode](https://npmjs.com/package/incode) package will be used for injecting generated code.
 
 ```sh
-$ npm i --save osh osh-string osh-code osh-code-js incode
+$ npm i --save osh osh-text osh-code osh-code-js incode
 ```
 
 #### Set up environment
@@ -224,7 +224,7 @@ function validateFunction(name, schema) {
 Now we just need to generate type checking code for all fields.
 
 ```js
-import { intersperse } from "osh-string";
+import { intersperse } from "osh-text";
 
 function checkType(prop, type) {
   return [
@@ -444,7 +444,7 @@ function transform(fn: (s: string, context: Context) => string, ...children: TCh
 ### Additional Packages
 
 - [osh-code](https://npmjs.com/package/osh-code) provides a basic set of components for generating program code.
-- [osh-string](https://npmjs.com/package/osh-string) provide string utilities.
+- [osh-text](https://npmjs.com/package/osh-text) provide general purpose text utilities.
 - [osh-code-go](https://npmjs.com/package/osh-code-go) provides a basic set of components for generating Go program
 code.
 - [osh-code-js](https://npmjs.com/package/osh-code-js) provides a basic set of components for generating

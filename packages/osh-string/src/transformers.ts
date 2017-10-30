@@ -1,4 +1,4 @@
-import { TChildren, TransformNode, transform } from "./tnode";
+import { TChildren, TransformNode, transform } from "osh";
 
 /**
  * trimTransformer trims whitespaces from a string.

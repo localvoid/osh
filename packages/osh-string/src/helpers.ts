@@ -1,4 +1,4 @@
-import { TChildren } from "./tnode";
+import { TChildren } from "osh";
 
 /**
  * intersperse function intersperses `separator` between elements of an `array`.

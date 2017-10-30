@@ -1,5 +1,6 @@
 import * as fs from "fs";
-import { context, capitalize, intersperse, renderToString } from "osh";
+import { context, capitalize, renderToString } from "osh";
+import { intersperse } from "osh-string";
 import { PADDING, line, indent, scope, declSymbol, sym } from "osh-code";
 import { jsCode } from "osh-code-js";
 import { createDirectiveMatcher, inject } from "incode";

@@ -1,6 +1,5 @@
 import { expect } from "iko";
-import { TNodeType } from "../src/tnode";
-import { renderToString } from "../src/render";
+import { TNodeType, renderToString } from "osh";
 import {
   trimTransformer, trimLeftTransformer, trimRightTransformer, toLowerCaseTransformer, toUpperCaseTransformer,
   capitalizeTransformer,

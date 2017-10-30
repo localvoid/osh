@@ -47,6 +47,7 @@ Full source for this tutorial is available [here](https://github.com/localvoid/o
 To build codegenerator we will use four packages:
 
 - [osh](https://npmjs.com/package/osh) package provides basic building blocks for text generation and a string renderer.
+- [osh-string](https://npmjs.com/package/osh-string) package provides string utilities.
 - [osh-code](https://npmjs.com/package/osh-code) package provides generic components that can be used in many different
 programming languages (`line()`, `indent()`, `comment()` etc).
 - [osh-code-js](https://npmjs.com/package/osh-code-js) package provides javascript specific components and a preset that
@@ -54,7 +55,7 @@ sets up `osh-code` environment.
 - [incode](https://npmjs.com/package/incode) package will be used for injecting generated code.
 
 ```sh
-$ npm i --save osh osh-code osh-code-js incode
+$ npm i --save osh osh-string osh-code osh-code-js incode
 ```
 
 #### Set up environment
@@ -223,7 +224,7 @@ function validateFunction(name, schema) {
 Now we just need to generate type checking code for all fields.
 
 ```js
-import { intersperse } from "osh";
+import { intersperse } from "osh-string";
 
 function checkType(prop, type) {
   return [
@@ -440,37 +441,10 @@ function transform(fn: (s: string) => string): TransformNode;
 function transform(fn: (s: string, context: Context) => string, ...children: TChildren[]): TransformNode;
 ```
 
-##### Built-in transformers
-
-```ts
-function trim(...children: TChildren[]): TransformNode;
-function trimLeft(...children: TChildren[]): TransformNode;
-function trimRight(...children: TChildren[]): TransformNode;
-function toLowerCase(...children: TChildren[]): TransformNode;
-function toUpperCase(...children: TChildren[]): TransformNode;
-function capitalize(...children: TChildren[]): TransformNode;
-function replace(searchValue: string | RegExp, replaceValue: string, ...children: TChildren[]): TransformNode;
-```
-
-- `trim()` trims whitespaces from a string.
-- `trimLeft()` trims whitespaces at the start of a string.
-- `trimRight()` trims whitespaces at the end of a string.
-- `toLowerCase()` converts string to lower case.
-- `toUpperCase()` converts string to upper case.
-- `capitalize()` capitalizes first character of a string.
-- `replace()` replaces `searchValue` with `replaceValue`.
-
-#### Helpers
-
-```ts
-function intersperse(array: TChildren[], separator: TChildren): TChildren[];
-```
-
-- `intersperse()` intersperses `separator` between elements of an `array`.
-
 ### Additional Packages
 
 - [osh-code](https://npmjs.com/package/osh-code) provides a basic set of components for generating program code.
+- [osh-string](https://npmjs.com/package/osh-string) provide string utilities.
 - [osh-code-go](https://npmjs.com/package/osh-code-go) provides a basic set of components for generating Go program
 code.
 - [osh-code-js](https://npmjs.com/package/osh-code-js) provides a basic set of components for generating

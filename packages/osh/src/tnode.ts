@@ -29,7 +29,7 @@ export type TNode =
 /**
  * TChildren is a recursive array of `TNode` objects, strings, numbers and null values.
  */
-export type TChildren = TChildrenArray | TNode | string | number | null;
+export type TChildren = TChildrenArray | TNode | string | number | null | undefined;
 /* tslint:disable:no-empty-interface */
 export interface TChildrenArray extends Array<TChildren> { }
 /* tslint:enable:no-empty-interface */

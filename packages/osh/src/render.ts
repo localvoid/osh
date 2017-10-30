@@ -55,15 +55,24 @@ function _renderToString(node: TNode, context: Context, stackTrace: TNode[]): st
   return result;
 }
 
+/**
+ * STACK_TRACE is a `Symbol` that is used as a key for a property to store stack traces in `Error` objects.
+ */
 export const STACK_TRACE = Symbol("StackTrace");
 
+/**
+ * renderToString renders node tree into a string.
+ *
+ * @param node Root node.
+ * @returns Rendered string.
+ */
 export function renderToString(node: TNode): string {
   const stackTrace: TNode[] = [];
   try {
     return _renderToString(node, {}, stackTrace);
   } catch (e) {
     if (typeof e === "object" && e !== null) {
-      e[STACK_TRACE] = stackTrace;
+      Object.defineProperty(e, STACK_TRACE, { value: stackTrace, writable: false });
     }
     throw e;
   }

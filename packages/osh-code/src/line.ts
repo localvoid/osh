@@ -1,5 +1,5 @@
 import { Context, TChildren, ContextNode, ComponentNode, context, component, trimRight } from "osh";
-import { BlockCommentType, getCommentConfig, getBlockCommentType, getContinueBlockComment } from "./comment";
+import { CommentConfig, BlockCommentType, getCommentConfig, getBlockCommentType } from "./comment";
 
 /**
  * INDENT_LEVEL is a symbol for a `Context` that is used to store current indentation level.
@@ -145,4 +145,18 @@ function pad(n: number, p: string): string {
     s += p;
   }
   return s;
+}
+
+/**
+ * getContinueBlockComment retrieves nodes that are used to represent continuation of a block comment.
+ *
+ * @param cfg Comment config.
+ * @param type Block comment type.
+ * @returns Node that are used to represent continuation of a block comment.
+ */
+function getContinueBlockComment(cfg: CommentConfig, type: BlockCommentType): TChildren {
+  if (type === BlockCommentType.Doc) {
+    return cfg.docContinue;
+  }
+  return cfg.blockContinue;
 }

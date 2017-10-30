@@ -151,17 +151,3 @@ export function DocComment(ctx: Context, children: TChildren[]): TChildren {
 export function docComment(...children: TChildren[]): ComponentNode<TChildren[]> {
   return component(DocComment, children);
 }
-
-/**
- * getContinueBlockComment retrieves nodes that are used to represent continuation of a block comment.
- *
- * @param cfg Comment config.
- * @param type Block comment type.
- * @returns Node that are used to represent continuation of a block comment.
- */
-export function getContinueBlockComment(cfg: CommentConfig, type: BlockCommentType): TChildren {
-  if (type === BlockCommentType.Doc) {
-    return cfg.docContinue;
-  }
-  return cfg.blockContinue;
-}

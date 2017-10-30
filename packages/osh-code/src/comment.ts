@@ -4,6 +4,9 @@ export const REMOVE_COMMENTS = Symbol("RemoveComments");
 export const COMMENT_CONFIG = Symbol("CommentConfig");
 export const BLOCK_COMMENT = Symbol("BlockComment");
 
+/**
+ * BlockCommentType is a type of a block comment.
+ */
 export const enum BlockCommentType {
   Invalid = 0,
   Default = 1,
@@ -13,6 +16,9 @@ export const enum BlockCommentType {
 const blockCommentContext = { [BLOCK_COMMENT]: BlockCommentType.Default };
 const docCommentContext = { [BLOCK_COMMENT]: BlockCommentType.Doc };
 
+/**
+ * CommentConfig is an object that contains details how to emit comments.
+ */
 export interface CommentConfig {
   readonly inlineStart: TChildren | null;
   readonly inlineEnd: TChildren | null;
@@ -25,27 +31,54 @@ export interface CommentConfig {
   readonly start: TChildren | null;
 }
 
-export function commentConfig(ctx: Context): CommentConfig {
+/**
+ * getCommentConfig retrieves `CommentConfig` from context.
+ *
+ * @param ctx Context.
+ * @returns Comment config.
+ */
+export function getCommentConfig(ctx: Context): CommentConfig {
   const v = ctx[COMMENT_CONFIG];
   if (v === void 0) {
-    throw new Error("Unable to locate CommentConfig in the context");
+    throw new Error("Unable to locate CommentConfig in the current context.");
   }
   return v;
 }
 
+/**
+ * Comment is a component representing an inline comment.
+ *
+ * @param ctx Current context.
+ * @param children Children nodes.
+ * @returns Rendered comment.
+ */
 export function Comment(ctx: Context, children: TChildren[]): TChildren {
   if (ctx[REMOVE_COMMENTS]) {
     return null;
   }
-  const cfg = commentConfig(ctx);
+  const cfg = getCommentConfig(ctx);
   return [cfg.inlineStart, children, cfg.inlineEnd];
 }
 
+/**
+ * comment is a factory for `Comment` component.
+ *
+ * `Comment` is a component representing an inline comment.
+ *
+ * @param children Children nodes.
+ * @returns `Comment` component node.
+ */
 export function comment(...children: TChildren[]): ComponentNode<TChildren[]> {
   return component(Comment, children);
 }
 
-export function blockCommentType(ctx: Context): BlockCommentType {
+/**
+ * getBlockCommentType retrieves `BlockCommentType` from context.
+ *
+ * @param ctx Context.
+ * @returns Block comment type.
+ */
+export function getBlockCommentType(ctx: Context): BlockCommentType {
   let v = ctx[BLOCK_COMMENT];
   if (v === void 0) {
     v = BlockCommentType.Invalid;
@@ -53,11 +86,18 @@ export function blockCommentType(ctx: Context): BlockCommentType {
   return v;
 }
 
+/**
+ * BlockComment is a component representing a block comment.
+ *
+ * @param ctx Current context.
+ * @param children Children nodes.
+ * @returns Rendered block comment.
+ */
 export function BlockComment(ctx: Context, children: TChildren[]): TChildren {
   if (ctx[REMOVE_COMMENTS]) {
     return null;
   }
-  const cfg = commentConfig(ctx);
+  const cfg = getCommentConfig(ctx);
 
   return [
     cfg.blockStart,
@@ -67,15 +107,30 @@ export function BlockComment(ctx: Context, children: TChildren[]): TChildren {
 
 }
 
+/**
+ * blockComment is a factory for `BlockComment` component.
+ *
+ * `BlockComment` is a component representing a block comment.
+ *
+ * @param children Children nodes.
+ * @returns `BlockComment` component node.
+ */
 export function blockComment(...children: TChildren[]): ComponentNode<TChildren[]> {
   return component(BlockComment, children);
 }
 
+/**
+ * DocComment is a component representing a doc comment.
+ *
+ * @param ctx Current context.
+ * @param children Children nodes.
+ * @returns Rendered doc comment.
+ */
 export function DocComment(ctx: Context, children: TChildren[]): TChildren {
   if (ctx[REMOVE_COMMENTS]) {
     return null;
   }
-  const cfg = commentConfig(ctx);
+  const cfg = getCommentConfig(ctx);
 
   return [
     cfg.docStart,
@@ -85,11 +140,26 @@ export function DocComment(ctx: Context, children: TChildren[]): TChildren {
 
 }
 
+/**
+ * docComment is a factory for `DocComment` component.
+ *
+ * `DocComment` is a component representing a doc comment.
+ *
+ * @param children Children nodes.
+ * @returns `Comment` component node.
+ */
 export function docComment(...children: TChildren[]): ComponentNode<TChildren[]> {
   return component(DocComment, children);
 }
 
-export function continueBlockComment(cfg: CommentConfig, type: BlockCommentType): TChildren {
+/**
+ * getContinueBlockComment retrieves nodes that are used to represent continuation of a block comment.
+ *
+ * @param cfg Comment config.
+ * @param type Block comment type.
+ * @returns Node that are used to represent continuation of a block comment.
+ */
+export function getContinueBlockComment(cfg: CommentConfig, type: BlockCommentType): TChildren {
   if (type === BlockCommentType.Doc) {
     return cfg.docContinue;
   }

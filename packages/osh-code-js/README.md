@@ -1,10 +1,17 @@
 `osh-code-js` provides a set of basic components for generating Javascript(TypeScript) program code.
 
-## Language Presets
+## `osh-code` preset
 
-Language presets provide a default context variable for different programming languages.
+```ts
+interface JSCodeOptions {
+  readonly lang: "es5" | "es2015" | "es2016" | "es2017" | "ts" | "flow";
+  readonly target: "browser" | "node";
+  readonly module: "commonjs" | "es2015";
+  readonly removeComments: boolean;
+}
 
-### Javascript
+function jsCode(options: Partial<JSCodeOptions> | undefined, children: TChildren): ComponentNode<JSCodeProps>;
+```
 
 ```ts
 import { renderToString } from "osh";
@@ -12,18 +19,12 @@ import { line, docComment } from "osh-code";
 import { jsCode } from "osh-code-js";
 
 renderToString(jsCode(
-  docComment(
-    line("Doc comment"),
-  ),
-  line(`console.log("Hello Code");`),
+  { lang: "es2016" },
+  [
+    docComment(
+      line("Doc comment"),
+    ),
+    line(`console.log("Hello Javascript");`),
+  ],
 ));
-```
-
-Will produce:
-
-```js
-/**
- * Doc comment
- */
-console.log("Hello Code");
 ```

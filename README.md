@@ -1,6 +1,7 @@
 `osh` is a javascript library that provides component-based model for generating text data.
 
-## Tutorial
+## Documentation
+### Tutorial
 
 In this tutorial we will create a code generator that generates type validation functions from simple schemas like this:
 
@@ -41,7 +42,7 @@ function validateUser(user) {
 
 Full source for this tutorial is available [here](https://github.com/localvoid/osh/tree/master/tutorial).
 
-### Install dependencies
+#### Install dependencies
 
 To build codegenerator we will use four packages:
 
@@ -56,7 +57,7 @@ sets up `osh-code` environment.
 $ npm i --save osh osh-code osh-code-js incode
 ```
 
-### Set up environment
+#### Set up environment
 
 First thing that we need to do is set up `osh-code` environment for javascript code generation.
 [osh-code-js](https://npmjs.com/package/osh-code-js) provides a configurable `jsCode` preset that sets up codegen
@@ -80,7 +81,7 @@ function emit(...children) {
 
 `emit` function will take any `osh` nodes and render them inside a javascript codegen environment.
 
-### Function declaration
+#### Function declaration
 
 Let's start from generating a function declaration for our validate function:
 
@@ -117,7 +118,7 @@ function validateFunction(name, schema) {
 }
 ```
 
-### Function arguments
+#### Function arguments
 
 One of the most common problems when automatically generating code is preventing name collisions for symbols.
 
@@ -175,7 +176,7 @@ function validateFunction(name, schema) {
 Here we defined two functions: `arg()` and `declArg()`. `arg()` is a helper function that will retrieve symbols from
 scopes with `ARGUMENTS` type. And `declArg()` will declare a `name` symbol with `"data"` key.
 
-### Local variables
+#### Local variables
 
 In our validation function we are using two local variables: `errors` and `type`, so we should create another `scope`
 and declare this variables.
@@ -217,7 +218,7 @@ function validateFunction(name, schema) {
 }
 ```
 
-### Generating type checking code
+#### Generating type checking code
 
 Now we just need to generate type checking code for all fields.
 
@@ -266,7 +267,7 @@ function validateFunction(name, schema) {
 }
 ```
 
-### Injecting generated code into existing code
+#### Injecting generated code into existing code
 
 And the final step is to inject generated code into existing code. To inject generated code we will use `incode`
 package, it is using different directives for defining injectable regions:
@@ -339,8 +340,8 @@ const result = inject(
 fs.writeFileSync(FILE, result);
 ```
 
-## API
-### Components
+### API
+#### Components
 
 Components are declared with a simple functions that has two optional parameters `ctx` and `props`.
 
@@ -359,7 +360,7 @@ function component<T>(fn: (context: Context, props: T) => TChildren, props: T): 
 function component(fn: (context: Context, props: any) => TChildren, props?: any): ComponentNode<any>;
 ```
 
-#### Example
+##### Example
 
 ```js
 import { component, renderToString } from "osh";
@@ -377,7 +378,7 @@ function Example(ctx, msg) {
 console.log(renderToString(component(Example, "Hello")));
 ```
 
-### Context
+#### Context
 
 Context is an immutable object that propagates contextual data to components.
 
@@ -387,7 +388,7 @@ Context nodes are created with `context` factory function:
 function context(ctx: Context, children: TChildren): ContextNode;
 ```
 
-#### Example
+##### Example
 
 ```js
 import { component, context, renderToString } from "osh";
@@ -430,16 +431,44 @@ console.log(
 );
 ```
 
-### Transform
+#### Transformers
 
-Transform components perform transformations on rendered strings.
+Transformer components perform transformations on rendered strings.
 
 ```ts
 function transform(fn: (s: string) => string): TransformNode;
 function transform(fn: (s: string, context: Context) => string, ...children: TChildren[]): TransformNode;
 ```
 
-## Additional Packages
+##### Built-in transformers
+
+```ts
+function trim(...children: TChildren[]): TransformNode;
+function trimLeft(...children: TChildren[]): TransformNode;
+function trimRight(...children: TChildren[]): TransformNode;
+function toLowerCase(...children: TChildren[]): TransformNode;
+function toUpperCase(...children: TChildren[]): TransformNode;
+function capitalize(...children: TChildren[]): TransformNode;
+function replace(searchValue: string | RegExp, replaceValue: string, ...children: TChildren[]): TransformNode;
+```
+
+- `trim()` trims whitespaces from a string.
+- `trimLeft()` trims whitespaces at the start of a string.
+- `trimRight()` trims whitespaces at the end of a string.
+- `toLowerCase()` converts string to lower case.
+- `toUpperCase()` converts string to upper case.
+- `capitalize()` capitalizes first character of a string.
+- `replace()` replaces `searchValue` with `replaceValue`.
+
+#### Helpers
+
+```ts
+function intersperse(array: TChildren[], separator: TChildren): TChildren[];
+```
+
+- `intersperse()` intersperses `separator` between elements of an `array`.
+
+### Additional Packages
 
 - [osh-code](https://npmjs.com/package/osh-code) provides a basic set of components for generating program code.
 - [osh-code-go](https://npmjs.com/package/osh-code-go) provides a basic set of components for generating Go program

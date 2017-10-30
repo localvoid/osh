@@ -11,6 +11,12 @@ function functionName(fn: FunctionWithDisplayName): string {
   return fn.name;
 }
 
+/**
+ * stackTraceToString converts stack trace to pretty printed string.
+ *
+ * @param stackTrace Stack trace.
+ * @returns Pretty printed stack trace.
+ */
 export function stackTraceToString(stackTrace: TNode[]): string {
   let s = "";
 
@@ -20,7 +26,7 @@ export function stackTraceToString(stackTrace: TNode[]): string {
         s += `[c] ${functionName(stackFrame.fn)}\n`;
         break;
       case TNodeType.Transform:
-        s += `[t] ${functionName(stackFrame.fn)}`;
+        s += `[t] ${functionName(stackFrame.fn)}\n`;
         break;
     }
   }
@@ -28,11 +34,15 @@ export function stackTraceToString(stackTrace: TNode[]): string {
   return s;
 }
 
+/**
+ * extractContext extracts context object from the stack trace.
+ *
+ * @param stackTrace Stack trace.
+ * @returns Context object.
+ */
 export function extractContext(stackTrace: TNode[]): Context {
-  let i = stackTrace.length - 1;
   let context = {};
-  while (i-- > 0) {
-    const frame = stackTrace[i];
+  for (const frame of stackTrace) {
     if (frame.type === TNodeType.Context) {
       context = Object.assign(context, frame.context);
     }

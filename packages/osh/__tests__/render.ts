@@ -30,6 +30,52 @@ function contextValue(key: any): TNode {
 describe("src/helpers.ts", () => {
   describe("basic nodes", () => {
     it("null", () => {
+      expect(renderToString(null)).toBe("");
+    });
+
+    it("empty string", () => {
+      expect(renderToString("")).toBe("");
+    });
+
+    it("abc string", () => {
+      expect(renderToString("abc")).toBe("abc");
+    });
+
+    it("array", () => {
+      expect(renderToString(["a", "b"])).toBe("ab");
+    });
+
+    it("numbers", () => {
+      expect(renderToString(1)).toBe("1");
+    });
+
+    it("undefined", () => {
+      expect(renderToString(undefined)).toBe("");
+    });
+
+    it("nested arrays", () => {
+      expect(renderToString(["a", ["b"], "c"])).toBe("abc");
+    });
+
+    it("nested arrays with numbers", () => {
+      expect(renderToString(["a", [1], "c"])).toBe("a1c");
+    });
+
+    it("nested arrays with nulls", () => {
+      expect(renderToString(["a", [null], "c"])).toBe("ac");
+    });
+
+    it("nested arrays with undefined values", () => {
+      expect(renderToString(["a", [undefined], "c"])).toBe("ac");
+    });
+
+    it("variadic args with numbers", () => {
+      expect(renderToString("a", [1], "c")).toBe("a1c");
+    });
+  });
+
+  describe("component return values", () => {
+    it("null", () => {
       expect(renderToString(component(() => null))).toBe("");
     });
 

@@ -1,16 +1,14 @@
 import { Context } from "./context";
-import { TNodeType, TNode, TChildrenArray } from "./tnode";
+import { TNodeType, TNode, TChildren } from "./tnode";
 
-function renderNodeList(nodes: TChildrenArray, context: Context, stackTrace: TNode[]): string {
+function renderNodeArray(nodes: TChildren[], context: Context, stackTrace: TNode[]): string {
   let r = "";
   for (const node of nodes) {
     if (typeof node === "object") {
       if (node !== null) {
-        if (Array.isArray(node)) {
-          r += renderNodeList(node, context, stackTrace);
-        } else {
-          r += _renderToString(node, context, stackTrace);
-        }
+        r += (Array.isArray(node)) ?
+          renderNodeArray(node, context, stackTrace) :
+          renderNode(node, context, stackTrace);
       }
     } else if (typeof node === "string") {
       r += node;
@@ -21,7 +19,7 @@ function renderNodeList(nodes: TChildrenArray, context: Context, stackTrace: TNo
   return r;
 }
 
-function _renderToString(node: TNode, context: Context, stackTrace: TNode[]): string {
+function renderNode(node: TNode, context: Context, stackTrace: TNode[]): string {
   stackTrace.push(node);
 
   let c;
@@ -40,7 +38,7 @@ function _renderToString(node: TNode, context: Context, stackTrace: TNode[]): st
   } else if (typeof c === "number") {
     result = c.toString();
   } else if (typeof c === "object" && c !== null && Array.isArray(c)) {
-    result = renderNodeList(c, context, stackTrace);
+    result = renderNodeArray(c, context, stackTrace);
   }
 
   if (node.type === TNodeType.Transform) {
@@ -62,10 +60,10 @@ export const STACK_TRACE = Symbol("StackTrace");
  * @param node Root node.
  * @returns Rendered string.
  */
-export function renderToString(node: TNode): string {
+export function renderToString(...children: TChildren[]): string {
   const stackTrace: TNode[] = [];
   try {
-    return _renderToString(node, {}, stackTrace);
+    return renderNodeArray(children, {}, stackTrace);
   } catch (e) {
     if (typeof e === "object" && e !== null) {
       Object.defineProperty(e, STACK_TRACE, { value: stackTrace, writable: false });

@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { context, capitalize, join, renderToString } from "osh";
+import { context, capitalize, intersperse, renderToString } from "osh";
 import { PADDING, line, indent, scope, declSymbol, sym } from "osh-code";
 import { jsCode } from "osh-code-js";
 import { createDirectiveMatcher, inject } from "incode";
@@ -65,7 +65,7 @@ function validateFunction(name, schema) {
             line("let ", lvar("errors"), ";"),
             line("let ", lvar("type"), ";"),
             line(),
-            join(
+            intersperse(
               Object.keys(schema).map((prop) => checkType(prop, schema[prop])),
               line(),
             ),

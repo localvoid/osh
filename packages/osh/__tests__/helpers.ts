@@ -1,26 +1,26 @@
 import { expect } from "iko";
-import { join } from "../src/helpers";
+import { intersperse } from "../src/helpers";
 
 describe("src/helpers.ts", () => {
-  describe("join", () => {
+  describe("intersperse", () => {
     it("empty array", () => {
-      expect(join([], null)).toBeEqual([]);
+      expect(intersperse([], null)).toBeEqual([]);
     });
 
     it("one item", () => {
-      expect(join(["a"], null)).toBeEqual(["a"]);
+      expect(intersperse(["a"], null)).toBeEqual(["a"]);
     });
 
     it("two items", () => {
-      expect(join(["a", "b"], null)).toBeEqual(["a", null, "b"]);
+      expect(intersperse(["a", "b"], null)).toBeEqual(["a", null, "b"]);
     });
 
     it("three items", () => {
-      expect(join(["a", "b", "c"], null)).toBeEqual(["a", null, "b", null, "c"]);
+      expect(intersperse(["a", "b", "c"], null)).toBeEqual(["a", null, "b", null, "c"]);
     });
 
     it("two items (array)", () => {
-      expect(join(["a", "b"], ["1", "2"])).toBeEqual(["a", ["1", "2"], "b"]);
+      expect(intersperse(["a", "b"], ["1", "2"])).toBeEqual(["a", ["1", "2"], "b"]);
     });
   });
 });

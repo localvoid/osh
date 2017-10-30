@@ -222,7 +222,7 @@ function validateFunction(name, schema) {
 Now we just need to generate type checking code for all fields.
 
 ```js
-import { join } from "osh";
+import { intersperse } from "osh";
 
 function checkType(prop, type) {
   return [
@@ -251,7 +251,7 @@ function validateFunction(name, schema) {
             line("let ", lvar("errors"), ";"),
             line("let ", lvar("type"), ";"),
             line(),
-            join(
+            intersperse(
               Object.keys(schema).map((prop) => checkType(prop, schema[prop])),
               line(),
             ),

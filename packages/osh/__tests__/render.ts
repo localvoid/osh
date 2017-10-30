@@ -27,7 +27,7 @@ function contextValue(key: any): TNode {
   return component(ContextValue, key);
 }
 
-describe("src/helpers.ts", () => {
+describe("src/render.ts", () => {
   describe("basic nodes", () => {
     it("null", () => {
       expect(renderToString(null)).toBe("");

@@ -1,6 +1,12 @@
 import { TChildren } from "./tnode";
 
-export function join(array: TChildren[], separator: TChildren): TChildren[] {
+/**
+ * intersperse function intersperses `separator` between elements of an `array`.
+ *
+ * @param array Children array.
+ * @param separator Interspersed element.
+ */
+export function intersperse(array: TChildren[], separator: TChildren): TChildren[] {
   const r = [];
   if (array.length > 0) {
     r[0] = array[0];

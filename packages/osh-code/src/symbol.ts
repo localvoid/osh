@@ -140,11 +140,12 @@ export function Scope(ctx: Context, props: ScopeProps): TChildren {
   const symbols = new Map<any, string>();
   const reverse = new Map<string, any>();
   for (const s of props.symbols) {
-    let symbol = props.conflictResolver(s.symbol, 1);
+    const rawSymbol = s.symbol;
+    let symbol = props.conflictResolver(rawSymbol, 1);
     if (parentFrame !== null) {
       let i = 2;
       while (hasReverseSymbol(parentFrame, symbol)) {
-        symbol = props.conflictResolver(symbol, i++);
+        symbol = props.conflictResolver(rawSymbol, i++);
       }
     }
     symbols.set(s.key, symbol);
@@ -171,7 +172,15 @@ export function Scope(ctx: Context, props: ScopeProps): TChildren {
  *
  * @param props Scope properties.
  */
-export function scope(props: ScopeProps): ComponentNode<ScopeProps> {
+export function scope(
+  // props type doesn't use `ScopeProps` because `conflictResolver` should be an optional.
+  props: {
+    type: symbol;
+    conflictResolver?: (key: string, i: number) => string;
+    symbols: SymbolDeclaration[];
+    children: TChildren;
+  },
+): ComponentNode<ScopeProps> {
   return component<ScopeProps>(
     Scope,
     {

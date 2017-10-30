@@ -37,8 +37,12 @@ function renderNode(node: TNode, context: Context, stackTrace: TNode[]): string 
     result = c;
   } else if (typeof c === "number") {
     result = c.toString();
-  } else if (typeof c === "object" && c !== null && Array.isArray(c)) {
-    result = renderNodeArray(c, context, stackTrace);
+  } else if (typeof c === "object" && c !== null) {
+    if (Array.isArray(c)) {
+      result = renderNodeArray(c, context, stackTrace);
+    } else {
+      result = renderNode(c, context, stackTrace);
+    }
   }
 
   if (node.type === TNodeType.Transform) {

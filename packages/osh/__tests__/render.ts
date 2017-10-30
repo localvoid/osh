@@ -114,6 +114,10 @@ describe("src/render.ts", () => {
     it("nested arrays with undefined values", () => {
       expect(renderToString(component(() => ["a", [undefined], "c"]))).toBe("ac");
     });
+
+    it("nested components", () => {
+      expect(renderToString(component(() => component(() => "abc")))).toBe("abc");
+    });
   });
 
   describe("context", () => {

@@ -437,7 +437,7 @@ console.log(
 Transformer components perform transformations on rendered strings.
 
 ```ts
-function transform(fn: (s: string) => string): TransformNode;
+function transform(fn: (s: string) => string, ...children: TChildren[]): TransformNode;
 function transform(fn: (s: string, context: Context) => string, ...children: TChildren[]): TransformNode;
 ```
 

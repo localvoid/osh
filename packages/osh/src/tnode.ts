@@ -156,6 +156,7 @@ export function component(fn: (context: Context, props: any) => TChildren, props
  * @param children Children nodes.
  * @returns `TransformNode` node.
  */
+export function transform(fn: (s: string) => string, ...children: TChildren[]): TransformNode;
 export function transform(fn: (s: string, context: Context) => string, ...children: TChildren[]): TransformNode {
   return { type: TNodeType.Transform, fn, children };
 }

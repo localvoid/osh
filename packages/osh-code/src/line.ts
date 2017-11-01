@@ -1,4 +1,5 @@
-import { Context, TChildren, ContextNode, ComponentNode, context, component, trimRight } from "osh";
+import { Context, TChildren, ContextNode, ComponentNode, context, component } from "osh";
+import { trimRight } from "osh-text";
 import { CommentConfig, BlockCommentType, getCommentConfig, getBlockCommentType } from "./comment";
 
 /**

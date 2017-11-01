@@ -3,7 +3,7 @@
   "main": "dist/cjs/index.js",
   "module": "dist/js/index.js",
   "typings": "dist/typings/index.d.ts",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Basic set of components for generating program code",
   "license": "MIT",
   "author": {
@@ -38,7 +38,8 @@
     "test:coverage": "../../node_modules/.bin/nyc ../../node_modules/.bin/mocha __tests__/index.ts"
   },
   "peerDependencies": {
-    "osh": "^0.3.0"
+    "osh": "^0.4.0",
+    "osh-text": "^0.4.0"
   },
   "dependencies": {},
   "devDependencies": {},

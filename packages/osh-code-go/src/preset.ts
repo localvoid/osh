@@ -60,7 +60,7 @@ export function GOCode(ctx: Context, props: GOCodeProps): TNode {
             blockContinue: null,
             docStart: null,
             docEnd: null,
-            docContinue: "//",
+            docContinue: "// ",
             start: "//",
           },
         },

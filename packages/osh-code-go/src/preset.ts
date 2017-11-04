@@ -61,7 +61,7 @@ export function GOCode(ctx: Context, props: GOCodeProps): TNode {
             docStart: null,
             docEnd: null,
             docContinue: "// ",
-            start: "//",
+            start: "// ",
           },
         },
         props.children,

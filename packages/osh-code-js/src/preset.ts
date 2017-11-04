@@ -100,7 +100,7 @@ export function JSCode(ctx: Context, props: JSCodeProps): TChildren {
             docStart: line("/**"),
             docEnd: line(" */"),
             docContinue: " * ",
-            start: "//",
+            start: "// ",
           },
         },
         props.children,

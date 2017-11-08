@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import { context, capitalize, renderToString } from "osh";
-import { intersperse } from "osh-string";
+import { intersperse } from "osh-text";
 import { PADDING, line, indent, scope, declSymbol, sym } from "osh-code";
 import { jsCode } from "osh-code-js";
 import { createDirectiveMatcher, inject } from "incode";
@@ -100,8 +100,9 @@ const result = inject(
   fs.readFileSync(FILE).toString(),
   createDirectiveMatcher("chk"),
   (region) => {
-    if (region.type === "validate") {
-      const name = region.data.schema;
+    const args = region.args;
+    if (args[0] === "validate") {
+      const name = args[1];
       const schema = SCHEMAS[name];
       // emit API is changed and has a `padding` as a first argument that should be prepended for all lines.
       // `region.padding` is automatically detected by `incode` library.

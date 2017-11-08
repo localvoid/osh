@@ -273,12 +273,10 @@ function validateFunction(name, schema) {
 And the final step is to inject generated code into existing code. To inject generated code we will use `incode`
 package, it is using different directives for defining injectable regions:
 
-- `chk:assign({ ... })` assigns a data in `JSON` format to the current scope.
-- `chk:emit(type)` injects a code block into the region
+- `chk:emit()` injects a code block into the region
 
 ```js
-// chk:assign({ "schema": "user" })
-// chk:emit("validate")
+// chk:emit("validate", "user")
 // chk:end
 
 function getUser() {
@@ -328,8 +326,9 @@ const result = inject(
   fs.readFileSync(FILE).toString(),
   createDirectiveMatcher("chk"),
   (region) => {
-    if (region.type === "validate") {
-      const name = region.data.schema;
+    const args = region.args;
+    if (args[0] === "validate") {
+      const name = args[1];
       const schema = SCHEMAS[name];
       return emit(region.padding, validateFunction(name, schema));
     }

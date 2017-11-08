@@ -1,5 +1,4 @@
-// chk:assign({ "schema": "user" })
-// chk:emit("validate")
+// chk:emit("validate", "user")
 // chk:end
 
 function getUser() {

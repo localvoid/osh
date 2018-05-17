@@ -1,9 +1,32 @@
 {
   "name": "osh-debug",
-  "main": "dist/cjs/index.js",
-  "module": "dist/js/index.js",
-  "typings": "dist/typings/index.d.ts",
   "version": "0.3.0",
+  "main": "dist/main/index.js",
+  "module": "dist/module/index.js",
+  "es2016": "dist/es2016/index.js",
+  "typings": "dist/typings/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "src",
+    "!src/**/__tests__",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "prepublishOnly": "npm run clean && npm run dist",
+    "clean": "rm -rf ./dist",
+    "dist": "npm run dist:main && npm run dist:module && npm run dist:es2016",
+    "dist:main": "../../node_modules/.bin/tsc -p ./tsconfig.build.main.json",
+    "dist:module": "../../node_modules/.bin/tsc -p ./tsconfig.build.module.json",
+    "dist:es2016": "../../node_modules/.bin/tsc -p ./tsconfig.build.es2016.json"
+  },
+  "peerDependencies": {
+    "osh": "^0.4.2"
+  },
+  "devDependencies": {
+    "osh": "^0.4.2"
+  },
   "description": "Debug utilities for osh library",
   "license": "MIT",
   "author": {
@@ -22,40 +45,5 @@
   "bugs": {
     "url": "https://github.com/localvoid/osh/issues"
   },
-  "github": "https://github.com/localvoid/osh",
-  "files": [
-    "dist",
-    "src",
-    "README.md",
-    "LICENSE"
-  ],
-  "scripts": {
-    "dist": "rm -rf ./dist && npm run dist:es2015 && npm run dist:cjs",
-    "dist:es2015": "../../node_modules/.bin/tsc --project ./tsconfig.build.es2015.json",
-    "dist:cjs": "../../node_modules/.bin/tsc --project ./tsconfig.build.cjs.json",
-    "lint": "../../node_modules/.bin/tslint --project ./tsconfig.json",
-    "test": "../../node_modules/.bin/mocha --reporter mocha-iko-reporter -r ../../node_modules/ts-node/register __tests__/index.ts",
-    "test:coverage": "../../node_modules/.bin/nyc ../../node_modules/.bin/mocha __tests__/index.ts"
-  },
-  "peerDependencies": {
-    "osh": "^0.3.0"
-  },
-  "dependencies": {},
-  "devDependencies": {},
-  "nyc": {
-    "require": [
-      "../../node_modules/ts-node/register"
-    ],
-    "extension": [
-      ".ts"
-    ],
-    "include": [
-      "src/**/*.ts"
-    ],
-    "reporter": [
-      "lcov",
-      "text-summary"
-    ],
-    "cache": true
-  }
+  "github": "https://github.com/localvoid/osh"
 }

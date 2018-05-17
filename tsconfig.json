@@ -1,0 +1,39 @@
+{
+  "extends": "./tools/typescript/tsconfig.checks.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "es2016",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "lib": [
+      "es2015",
+      "es2016"
+    ],
+    "types": [
+      "jest"
+    ],
+    "paths": {
+      "osh": [
+        "packages/osh/src"
+      ],
+      "osh-code": [
+        "packages/osh-code/src"
+      ],
+      "osh-code-go": [
+        "packages/osh-code-go/src"
+      ],
+      "osh-code-js": [
+        "packages/osh-code-js/src"
+      ],
+      "osh-code-debug": [
+        "packages/osh-code-debug/src"
+      ],
+      "osh-text": [
+        "packages/osh-text/src"
+      ]
+    }
+  },
+  "include": [
+    "packages/*/src/**/*.ts"
+  ]
+}

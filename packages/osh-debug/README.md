@@ -1,3 +1,5 @@
+# osh-debug
+
 Debug utilities for [osh](https://github.com/localvoid/osh) library.
 
 ## Stack Traces

@@ -1,6 +1,17 @@
-`osh` is a javascript library that provides component-based model for generating text data.
+# [osh](https://github.com/localvoid/osh) &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/localvoid/osh/blob/master/LICENSE) [![codecov](https://codecov.io/gh/localvoid/osh/branch/master/graph/badge.svg)](https://codecov.io/gh/localvoid/osh) [![CircleCI Status](https://circleci.com/gh/localvoid/osh.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/localvoid/osh) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/localvoid/osh)
+
+`osh` is a javascript library that provides component-based model for code generation.
+
+|Package    |NPM version                                                                                              |
+|-----------|---------------------------------------------------------------------------------------------------------|
+|osh        |[![npm version](https://img.shields.io/npm/v/osh.svg)](https://www.npmjs.com/package/osh)                |
+|osh-code   |[![npm version](https://img.shields.io/npm/v/osh-code.svg)](https://www.npmjs.com/package/osh-code)      |
+|osh-code-js|[![npm version](https://img.shields.io/npm/v/osh-code-js.svg)](https://www.npmjs.com/package/osh-code-js)|
+|osh-code-go|[![npm version](https://img.shields.io/npm/v/osh-code-go.svg)](https://www.npmjs.com/package/osh-code-go)|
+|osh-text   |[![npm version](https://img.shields.io/npm/v/osh-text.svg)](https://www.npmjs.com/package/osh-text)      |
 
 ## Documentation
+
 ### Tutorial
 
 In this tutorial we will create a code generator that generates type validation functions from simple schemas like this:
@@ -49,13 +60,13 @@ To build codegenerator we will use four packages:
 - [osh](https://npmjs.com/package/osh) package provides basic building blocks for text generation and a string renderer.
 - [osh-text](https://npmjs.com/package/osh-text) package provides general purpose text utilities.
 - [osh-code](https://npmjs.com/package/osh-code) package provides generic components that can be used in many different
-programming languages (`line()`, `indent()`, `comment()` etc).
+ programming languages (`line()`, `indent()`, `comment()` etc).
 - [osh-code-js](https://npmjs.com/package/osh-code-js) package provides javascript specific components and a preset that
-sets up `osh-code` environment.
+ sets up `osh-code` environment.
 - [incode](https://npmjs.com/package/incode) package will be used for injecting generated code.
 
 ```sh
-$ npm i --save osh osh-text osh-code osh-code-js incode
+$ npm install --save osh osh-text osh-code osh-code-js incode
 ```
 
 #### Set up environment
@@ -341,6 +352,7 @@ fs.writeFileSync(FILE, result);
 ```
 
 ### API
+
 #### Components
 
 Components are declared with a simple functions that has two optional parameters `ctx` and `props`.
@@ -445,7 +457,7 @@ function transform(fn: (s: string, context: Context) => string, ...children: TCh
 - [osh-code](https://npmjs.com/package/osh-code) provides a basic set of components for generating program code.
 - [osh-text](https://npmjs.com/package/osh-text) provide general purpose text utilities.
 - [osh-code-go](https://npmjs.com/package/osh-code-go) provides a basic set of components for generating Go program
-code.
+ code.
 - [osh-code-js](https://npmjs.com/package/osh-code-js) provides a basic set of components for generating
-Javascript(TypeScript) program code.
+ Javascript(TypeScript) program code.
 - [osh-debug](https://npmjs.com/package/osh-debug) debug utilities.

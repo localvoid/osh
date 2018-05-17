@@ -1,6 +1,8 @@
+# osh-text
+
 General purpose text utilities utilities for [osh](https://github.com/localvoid/osh) library.
 
-### Transformers
+## Transformers
 
 ```ts
 function trim(...children: TChildren[]): TransformNode;
